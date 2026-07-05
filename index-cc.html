@@ -51,7 +51,7 @@
             color: #928b9c;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
-            margin-top: 28px; /* 让副标题往下移，离大标题更远，离蛋糕更近 */
+            margin-top: 25px; /* 让副标题往下移，离大标题更远，离蛋糕更近 */
         }
         #canvas-container {
             position: absolute;
@@ -68,7 +68,7 @@
         }
         .controls {
             z-index: 10;
-            margin-bottom: 90px; 
+            margin-bottom: 85px; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -156,7 +156,7 @@
         let velocityX = 0; 
 
         const BLOW_THRESHOLD = 75; 
-        const PITCH = 0.26;
+        const PITCH = 0.10;
 
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -368,7 +368,7 @@
             const textPoints = getTextPoints("HAPPY BIRTHDAY", textFontSize);
             textPoints.forEach(pt => {
                 const lx = pt.lx * 0.42 * scaleFactor;
-                const ly = -165 * scaleFactor + pt.ly * 0.42 * scaleFactor; 
+                const ly = -155 * scaleFactor + pt.ly * 0.42 * scaleFactor; 
                 
                 const color = interpolateColor('#e8d3fc', '#f7d3e6', Math.random());
                 particles.push(new Particle(lx, ly, 0, color, 'text'));
