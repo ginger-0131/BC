@@ -156,7 +156,7 @@
         let velocityX = 0; 
 
         const BLOW_THRESHOLD = 75; 
-        const PITCH = 0.1;
+        const PITCH = 0.12;
 
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -264,10 +264,10 @@
 
 			if (spawnTicks < 90) {
 			    // 0–90帧：飞入慢一点，保留四面八方来的感觉
-			    currentSpeed = this.baseSpeed * 0.24;
+			    currentSpeed = this.baseSpeed * 0.20;
 			} else if (spawnTicks < 180) {
 			    // 90–180帧：开始明显聚集，大体成型
-			    currentSpeed = this.baseSpeed * 0.34;
+			    currentSpeed = this.baseSpeed * 0.32;
 			} else if (spawnTicks < 210) {
 			    // 180–210帧：精细贴合，别再猛冲
 			    currentSpeed = this.baseSpeed * 0.22;
@@ -510,7 +510,7 @@
 
             spawnTicks++;
             if (!isDragging) {
-                if (spawnTicks > 210) {  
+                if (spawnTicks > 180) {  
                     angleY += velocityX;
                     velocityX *= 0.95; 
                     if (Math.abs(velocityX) < 0.004) {
@@ -522,7 +522,7 @@
                 }
             }
 
-            if (spawnTicks >= 210 && state === 'WAITING') {
+            if (spawnTicks >= 180 && state === 'WAITING') {
                 wishBtn.classList.add('ready-to-tap');
             }
 
@@ -548,7 +548,7 @@
         }
 
         function handleStart(clientX) {
-            if (spawnTicks < 210) return;
+            if (spawnTicks < 180) return;
             isDragging = true;
             previousX = clientX;
             velocityX = 0;
