@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -259,8 +259,22 @@
                         let dx = targetScreenX - this.x;
                         let dy = targetScreenY - this.y;
             
-	        // 前60帧爆发入场，60帧后高灵敏度追随，这是产生夸张拉伸变形的核心
-    	        let currentSpeed = spawnTicks < 60 ? this.baseSpeed * 0.4 : this.baseSpeed * 0.4;
+	        // 入场节奏：慢飞入 → 大体成型 → 精细成型
+			let currentSpeed;
+
+			if (spawnTicks < 90) {
+			    // 0–90帧：飞入慢一点，保留四面八方来的感觉
+			    currentSpeed = this.baseSpeed * 0.24;
+			} else if (spawnTicks < 180) {
+			    // 90–180帧：开始明显聚集，大体成型
+			    currentSpeed = this.baseSpeed * 0.34;
+			} else if (spawnTicks < 210) {
+			    // 180–210帧：精细贴合，别再猛冲
+			    currentSpeed = this.baseSpeed * 0.22;
+			} else {
+			    // 210帧后：恢复你原来满意的稳定追随/旋转弹性手感
+			    currentSpeed = this.baseSpeed * 0.4;
+			}
 
 	        this.vx += dx * currentSpeed;
 	        this.vy += dy * currentSpeed;
@@ -508,7 +522,7 @@
                 }
             }
 
-            if (spawnTicks === 210 && state === 'WAITING') {
+            if (spawnTicks >= 210 && state === 'WAITING') {
                 wishBtn.classList.add('ready-to-tap');
             }
 
